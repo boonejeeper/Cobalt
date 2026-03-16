@@ -1,0 +1,8 @@
+[[customizations.filesystem]]
+mountpoint = "/"
+minsize = "20 GiB"
+
+[[customizations.user]]
+name = "VM_USER"
+password = "VM_PASSWORD"
+groups = ["wheel"]

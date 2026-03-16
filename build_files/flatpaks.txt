@@ -1,0 +1,30 @@
+# Flatpak apps installed by `just install-flatpaks`
+# One app ID per line. Lines starting with # are ignored.
+# Browse apps at https://flathub.org
+
+# Browser
+org.mozilla.firefox
+
+# Email
+org.mozilla.Thunderbird
+
+# File manager (graphical alternative to Thunar)
+# org.gnome.Nautilus
+
+# Media
+org.videolan.VLC
+org.gnome.Loupe
+
+# Documents
+org.gnome.Evince
+
+# Text editor
+org.gnome.TextEditor
+
+# Terminal (alternative to foot)
+# org.gnome.Ptyxis
+
+# Utilities
+org.gnome.Calculator
+org.gnome.clocks
+com.github.tchx84.Flatseal

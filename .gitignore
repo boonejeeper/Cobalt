@@ -1,4 +1,8 @@
 cosign.key
 _build_*
 output
+output_*.txt
 _build-*/**
+build_docs
+.claude
+disk_config/disk-vm.toml

@@ -1,24 +1,47 @@
 #!/bin/bash
-
 set -ouex pipefail
 
-### Install packages
+# ── Parallel downloads ───────────────────────────────────────────────────────
+echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
+# ── RPMFusion ────────────────────────────────────────────────────────────────
+# Must be installed first since codec and driver packages come from these repos
+dnf5 -y install \
+    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+# ── Multimedia codecs ────────────────────────────────────────────────────────
+# Replace free codec stubs with full ffmpeg from RPMFusion
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing || true
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+# ── All packages in a single transaction ─────────────────────────────────────
+# Consolidating into one dnf5 call avoids repeated repo metadata loads
+dnf5 -y install --skip-unavailable \
+    ffmpeg-libs \
+    libva-intel-driver \
+    intel-media-driver \
+    mesa-va-drivers-freeworld \
+    mesa-vdpau-drivers-freeworld \
+    distrobox \
+    just \
+    fzf \
+    htop \
+    tmux \
+    neovim \
+    zsh \
+    restic \
+    chezmoi \
+    git \
+    curl \
+    wget \
+    wofi \
+    mako \
+    clipman \
+    lxpolkit \
+    google-noto-fonts-common \
+    google-noto-sans-fonts \
+    google-noto-emoji-fonts \
+    adobe-source-code-pro-fonts
 
-#### Example for enabling a System Unit File
-
+# ── System services ──────────────────────────────────────────────────────────
 systemctl enable podman.socket

@@ -1,0 +1,42 @@
+# System justfile for sway-blue — run with: just --justfile /usr/share/sway-blue/justfile <recipe>
+# Or add to ~/.bashrc: alias sway-just='just --justfile /usr/share/sway-blue/justfile --working-directory ~'
+
+[private]
+default:
+    @just --justfile {{ justfile() }} --list
+
+# Install Flatpak apps from the curated list
+install-flatpaks:
+    #!/usr/bin/bash
+    set -euo pipefail
+    if ! flatpak remote-list | grep -q flathub; then
+        flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+    fi
+    installed=$(flatpak list --app --columns=application)
+    while IFS= read -r app; do
+        app=$(echo "$app" | xargs)
+        [[ -z "$app" || "$app" == \#* ]] && continue
+        if echo "$installed" | grep -q "^${app}$"; then
+            echo "Already installed: $app"
+        else
+            echo "Installing: $app"
+            flatpak install --user -y flathub "$app"
+        fi
+    done < /usr/share/sway-blue/flatpaks.txt
+    echo "Done. All Flatpaks installed."
+
+# Update all Flatpak apps
+update-flatpaks:
+    flatpak update -y
+
+# Set up chezmoi with a dotfiles repo
+setup-dotfiles repo:
+    chezmoi init --apply {{ repo }}
+
+# Show what's included in this image
+show-packages:
+    rpm -qa | sort
+
+# Verify all expected packages are installed with versions
+verify:
+    bash /usr/share/sway-blue/verify-install.sh
