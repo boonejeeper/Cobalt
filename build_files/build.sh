@@ -32,21 +32,48 @@ dnf5 -y install --skip-unavailable \
     tmux \
     neovim \
     zsh \
+    fish \
     restic \
     chezmoi \
     git \
+    git-credential-libsecret \
+    gh \
     curl \
     wget \
     nodejs \
     npm \
+    python3-pip \
     wofi \
     mako \
     clipman \
     lxpolkit \
+    bootc \
+    podman-compose \
+    fastfetch \
+    glow \
+    gum \
+    wl-clipboard \
+    wireguard-tools \
+    openssh-askpass \
+    borgbackup \
+    rclone \
+    lm_sensors \
+    powertop \
+    ddcutil \
+    evtest \
+    pulseaudio-utils \
+    input-remapper \
+    iotop \
+    ydotool \
+    p7zip \
+    p7zip-plugins \
+    xdg-terminal-exec \
+    libxcrypt-compat \
     google-noto-fonts-common \
     google-noto-sans-fonts \
     google-noto-emoji-fonts \
-    adobe-source-code-pro-fonts
+    adobe-source-code-pro-fonts \
+    jetbrains-mono-fonts-all
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
 npm install -g --prefix /usr @anthropic-ai/claude-code
