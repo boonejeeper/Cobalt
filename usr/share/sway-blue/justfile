@@ -9,9 +9,7 @@ default:
 install-flatpaks:
     #!/usr/bin/bash
     set -euo pipefail
-    if ! flatpak remote-list | grep -q flathub; then
-        flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-    fi
+    flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
     installed=$(flatpak list --app --columns=application)
     while IFS= read -r app; do
         app=$(echo "$app" | xargs)

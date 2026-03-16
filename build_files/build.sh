@@ -14,6 +14,9 @@ dnf5 -y install \
 # Replace free codec stubs with full ffmpeg from RPMFusion
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing || true
 
+# ── Replace foot with alacritty ──────────────────────────────────────────────
+dnf5 -y swap foot alacritty --allowerasing || dnf5 -y remove foot && dnf5 -y install alacritty
+
 # ── All packages in a single transaction ─────────────────────────────────────
 # Consolidating into one dnf5 call avoids repeated repo metadata loads
 dnf5 -y install --skip-unavailable \
@@ -34,6 +37,8 @@ dnf5 -y install --skip-unavailable \
     git \
     curl \
     wget \
+    nodejs \
+    npm \
     wofi \
     mako \
     clipman \
@@ -42,6 +47,12 @@ dnf5 -y install --skip-unavailable \
     google-noto-sans-fonts \
     google-noto-emoji-fonts \
     adobe-source-code-pro-fonts
+
+# ── Claude Code ───────────────────────────────────────────────────────────────
+npm install -g @anthropic-ai/claude-code
+
+# ── Default editor ────────────────────────────────────────────────────────────
+alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 
 # ── System services ──────────────────────────────────────────────────────────
 systemctl enable podman.socket
