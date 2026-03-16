@@ -49,7 +49,7 @@ dnf5 -y install --skip-unavailable \
     adobe-source-code-pro-fonts
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
-npm install -g @anthropic-ai/claude-code
+npm install -g --prefix /usr @anthropic-ai/claude-code
 
 # ── Default editor ────────────────────────────────────────────────────────────
 alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
