@@ -76,7 +76,7 @@ dnf5 -y install --skip-unavailable \
     jetbrains-mono-fonts-all
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
-npm install -g --prefix /usr @anthropic-ai/claude-code
+HOME=/tmp npm install -g --prefix /usr --cache /tmp/npm-cache @anthropic-ai/claude-code
 
 # ── Default editor ────────────────────────────────────────────────────────────
 alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
