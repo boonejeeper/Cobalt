@@ -75,7 +75,8 @@ dnf5 -y install --skip-unavailable \
     adobe-source-code-pro-fonts \
     jetbrains-mono-fonts-all \
     starship \
-    pass
+    pass \
+    syncthing
 
 # ── Tailscale ─────────────────────────────────────────────────────────────────
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
@@ -90,3 +91,4 @@ alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 
 # ── System services ──────────────────────────────────────────────────────────
 systemctl enable podman.socket
+systemctl --global enable syncthing.service
