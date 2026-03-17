@@ -27,6 +27,17 @@ install-flatpaks:
 update-flatpaks:
     flatpak update -y
 
+# Install Oh My Zsh for the current user
+install-omz:
+    #!/usr/bin/bash
+    set -euo pipefail
+    if [[ -d "${HOME}/.oh-my-zsh" ]]; then
+        echo "Oh My Zsh is already installed at ${HOME}/.oh-my-zsh"
+        exit 0
+    fi
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    echo "Oh My Zsh installed."
+
 # Set up chezmoi with a dotfiles repo
 setup-dotfiles repo:
     chezmoi init --apply {{ repo }}
