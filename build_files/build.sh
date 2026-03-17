@@ -73,7 +73,13 @@ dnf5 -y install --skip-unavailable \
     google-noto-sans-fonts \
     google-noto-emoji-fonts \
     adobe-source-code-pro-fonts \
-    jetbrains-mono-fonts-all
+    jetbrains-mono-fonts-all \
+    starship
+
+# ── Tailscale ─────────────────────────────────────────────────────────────────
+dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+dnf5 -y install tailscale
+systemctl enable tailscaled
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
 HOME=/tmp npm install -g --prefix /usr --cache /tmp/npm-cache @anthropic-ai/claude-code
