@@ -74,7 +74,8 @@ dnf5 -y install --skip-unavailable \
     google-noto-emoji-fonts \
     adobe-source-code-pro-fonts \
     jetbrains-mono-fonts-all \
-    starship
+    starship \
+    pass
 
 # ── Tailscale ─────────────────────────────────────────────────────────────────
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
